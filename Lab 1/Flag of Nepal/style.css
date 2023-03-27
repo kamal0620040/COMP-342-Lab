@@ -1,0 +1,12 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 90vh;
+}
+
+body canvas{
+    border: 5px solid hotpink;
+    border-radius: 10px;
+}
