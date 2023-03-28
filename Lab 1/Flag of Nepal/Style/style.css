@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 body{
+    font-family: 'Inter', sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -17,5 +21,21 @@ body canvas{
 img{
     position: absolute;
 
-    /* opacity: 50%; */
+    opacity: 0%;
+}
+
+.my-info{
+    font-size: 30px;
+    background-color: hotpink;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+div a{
+    /* text-decoration: none; */
+    color: black;
 }
