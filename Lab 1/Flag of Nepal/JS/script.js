@@ -161,3 +161,10 @@ drawTriangle(
   225,
   264 // moonLoweVertex have 117 points so, 225 + 117/3 is the end point
 );
+
+
+document.querySelector(".resolution").innerHTML =
+  "Your screen resolution is: " +
+  (window.screen.width * window.devicePixelRatio).toFixed() +
+  "x" +
+  (window.screen.height * window.devicePixelRatio).toFixed();
