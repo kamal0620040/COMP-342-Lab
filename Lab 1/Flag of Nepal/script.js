@@ -10,6 +10,81 @@ if (gl === null) {
   );
 }
 
+// let sunVertexData = [];
+function createVertex(radius, xo, yo) {
+  let temp = [];
+  for (i = 0; i < 360; i += 15) {
+    temp.push(...[xo, yo, 0]);
+    x = radius * Math.cos((Math.PI / 180) * i) + xo;
+    y = radius * Math.sin((Math.PI / 180) * i) + yo;
+    temp.push(...[x, y, 0]);
+    x = radius * Math.cos((Math.PI / 180) * (i + 15)) + xo;
+    y = radius * Math.sin((Math.PI / 180) * (i + 15)) + yo;
+    temp.push(...[x, y, 0]);
+  }
+
+  return temp;
+}
+
+function createHalfVertex(radius, xo, yo) {
+    let temp = [];
+    for (i = 175; i < 360; i += 15) {
+      temp.push(...[xo, yo, 0]);
+      x = radius * Math.cos((Math.PI / 180) * i) + xo;
+      y = radius * Math.sin((Math.PI / 180) * i) + yo;
+      temp.push(...[x, y, 0]);
+      x = radius * Math.cos((Math.PI / 180) * (i + 15)) + xo;
+      y = radius * Math.sin((Math.PI / 180) * (i + 15)) + yo;
+      temp.push(...[x, y, 0]);
+    }
+  
+    return temp;
+}
+
+let sunVertexData = createVertex(0.15, -0.32, -0.45);
+
+let moonVertexData = createVertex(0.09, -0.32, 0.25);
+
+let moonLowerVertexData = createHalfVertex(0.18, -0.32, 0.25);
+
+console.log(111111111);
+console.log(moonLowerVertexData);
+
+function createSpikeData(radius, xo, yo) {
+  let temp = [];
+  midWidth = radius / 8;
+  for (i = -15; i < 345; i += 30) {
+    x = radius * Math.cos((Math.PI / 180) * i) + xo;
+    y = radius * Math.sin((Math.PI / 180) * i) + yo;
+    temp.push(...[x, y, 0]);
+    x = radius * Math.cos((Math.PI / 180) * (i + 30)) + xo;
+    y = radius * Math.sin((Math.PI / 180) * (i + 30)) + yo;
+    temp.push(...[x, y, 0]);
+    if (i <= 90) {
+      x = radius * Math.cos((Math.PI / 180) * (i + 15)) + xo + midWidth;
+      y = radius * Math.sin((Math.PI / 180) * (i + 15)) + yo + midWidth;
+      temp.push(...[x, y, 0]);
+    } else if (i <= 180) {
+      x = radius * Math.cos((Math.PI / 180) * (i + 15)) + xo - midWidth;
+      y = radius * Math.sin((Math.PI / 180) * (i + 15)) + yo + midWidth;
+      temp.push(...[x, y, 0]);
+    } else if (i <= 270) {
+      x = radius * Math.cos((Math.PI / 180) * (i + 15)) + xo - midWidth;
+      y = radius * Math.sin((Math.PI / 180) * (i + 15)) + yo - midWidth;
+      temp.push(...[x, y, 0]);
+    } else if (i <= 360) {
+      x = radius * Math.cos((Math.PI / 180) * (i + 15)) + xo + midWidth;
+      y = radius * Math.sin((Math.PI / 180) * (i + 15)) + yo - midWidth;
+      temp.push(...[x, y, 0]);
+    }
+  }
+  return temp;
+}
+
+let sunSpikeData = createSpikeData(0.15, -0.32, -0.45);
+let moonSpikeData = createSpikeData(0.09, -0.32, 0.25);
+
+
 const vertexData = [
     // upper blue border
     -0.627, -0.05, 0,
@@ -32,10 +107,18 @@ const vertexData = [
     -0.57, 0.45, 0,
     0.43,-0.92, 0,
 
-    // -1, -1, 0,
-    // 0, 1, 0,
-    // 1, -1, 0,
+    ...sunVertexData,
+
+    ...sunSpikeData,
+
+    ...moonVertexData,
+
+    ...moonSpikeData,
+
+    ...moonLowerVertexData,
+
 ];
+
 
 const buffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -67,10 +150,6 @@ function drawTriangle(fragmentShaderGLSL, start, end){
     gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
     
     gl.useProgram(program);
-
-    // for(let i = start; i <= end; i = i + 3){
-    //     gl.drawArrays(gl.TRIANGLES, i, 3);
-    // }
     
     gl.drawArrays(gl.TRIANGLES, start, end);
 }
@@ -88,7 +167,7 @@ drawTriangle(
 drawTriangle(
     `void main(){
         gl_FragColor = vec4(0, 0, 1, 1); 
-    }`, // for red color triangle
+    }`, // for blue color triangle
     3, // start positon of vertexData array
     6, // end position of vertexData Array
 );
@@ -112,3 +191,47 @@ drawTriangle(
     12, // end position of vertexData Array
 );
 
+// sun
+drawTriangle(
+    `void main() {
+        gl_FragColor = vec4(1, 1, 1, 1);}
+    `,
+    12,
+    81,
+);
+
+// sun spike
+drawTriangle(
+    `void main() {
+        gl_FragColor = vec4(1, 1, 1, 1);}
+    `,
+    81,
+    117,
+);
+
+// moon
+drawTriangle(
+    `void main() {
+        gl_FragColor = vec4(1, 1, 1, 1);}
+    `,
+    117,
+    189,
+);
+
+// moon spike
+drawTriangle(
+    `void main() {
+        gl_FragColor = vec4(1, 1, 1, 1);}
+    `,
+    189,
+    225,
+);
+
+// moon lower circle range from 175 to 360
+drawTriangle(
+    `void main() {
+        gl_FragColor = vec4(1, 1, 1, 1);}
+    `,
+    225,
+    264, // moonLoweVertex have 117 points so, 225 + 117/3 is the end point
+);
