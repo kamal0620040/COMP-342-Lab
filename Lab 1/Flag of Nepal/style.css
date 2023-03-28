@@ -9,4 +9,13 @@ body{
 body canvas{
     border: 5px solid hotpink;
     border-radius: 10px;
+
+    opacity: 100%;
+    z-index: 10;
+}
+
+img{
+    position: absolute;
+
+    opacity: 0%;
 }
