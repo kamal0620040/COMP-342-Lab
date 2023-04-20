@@ -1,4 +1,5 @@
 function BLALine(x1, y1, x2, y2){
+    let tempVertices = [];
     let dx = Math.abs(x2 - x1);
     let dy = Math.abs(y2 - y1);
     let slope = dy/dx;
@@ -14,7 +15,9 @@ function BLALine(x1, y1, x2, y2){
         X = x1;
         Y = y1;
         // TODO: Plot X, Y
-        console.log(X, Y);
+        tempVertices.push(X / 600);
+        tempVertices.push(Y / 600);
+        // console.log(X, Y);
         p = 2 * dy - dx;
         steps = x1 < x2 ? x2 - x1 : x1 - x2;
         for (let i = 0; i < steps; i++){
@@ -26,7 +29,9 @@ function BLALine(x1, y1, x2, y2){
             }
             X++;
             // TODO: Plot X, Y
-            console.log(X, Y);
+            // console.log(X, Y);
+            tempVertices.push(X / 600);
+            tempVertices.push(Y / 600);
         }
     }else{
         // for slope >= 1
@@ -39,7 +44,9 @@ function BLALine(x1, y1, x2, y2){
         X = x1;
         Y = y1;
         // TODO: Plot X, Y
-        console.log(X, Y);
+        // console.log(X, Y);
+        tempVertices.push(X / 600);
+        tempVertices.push(Y / 600);
         steps = y1 < y2 ? y2 - y1 : y1 - y2;
         // steps = y2 - y1;
         p = 2 * dx - dy;
@@ -53,9 +60,12 @@ function BLALine(x1, y1, x2, y2){
             }
             Y++;
             // TODO: Plot X, Y
-            console.log(X, Y);
+            // console.log(X, Y);
+            tempVertices.push(X / 600);
+            tempVertices.push(Y / 600);
         }
     }
+    return tempVertices;
 }
 
 /* Considering my canvas of size 600 * 600 - [-600/600 = -1 ].

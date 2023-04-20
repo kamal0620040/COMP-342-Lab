@@ -1,4 +1,5 @@
 function DDALine(x1, y1, x2, y2){
+    let tempVertices = [];
     let dx = x2 - x1;
     let dy = y2 - y1;
 
@@ -6,7 +7,9 @@ function DDALine(x1, y1, x2, y2){
     Y = y1;
 
     // TODO: Plot X, Y
-    console.log(X, Y);
+    tempVertices.push(X / 600); // 600 * 600 - size of canvas
+    tempVertices.push(Y / 600);
+    // console.log(X, Y);
     
     let stepsize;
     if(Math.abs(dx) > Math.abs(dy)){
@@ -23,10 +26,13 @@ function DDALine(x1, y1, x2, y2){
         X = X + xinc;
         Y = Y + yinc;
         // TODO: Plot X, Y
-        console.log(X, Y);
+        tempVertices.push(X / 600);
+        tempVertices.push(Y / 600);
+        // console.log(X, Y);
         count++;
     }
+    return tempVertices;
 }
 
 // DDALine(-100, -100, 100, 100);
- DDALine(100, 100, -100, -100);
+//  DDALine(100, 100, -100, -100);
