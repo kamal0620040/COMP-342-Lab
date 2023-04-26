@@ -5,6 +5,8 @@ function midPointCircle(radius ,xc, yc){
     let y = radius;
 
     p = 5/4 - radius;
+    tempVertices = [...tempVertices,...otherVertices(x, y, xc, yc)];
+
     while(x < y){
         if(p < 0){
             x = x + 1;
@@ -15,13 +17,13 @@ function midPointCircle(radius ,xc, yc){
             y = y - 1;
             p = p + 2 * x + 1 - 2 * y;
         }
-        tempVertices = [...tempVertices,...otherVertex(x, y, xc, yc)];
+        tempVertices = [...tempVertices,...otherVertices(x, y, xc, yc)];
     }
     // console.log(tempVertices);
     return tempVertices;
 }
 
-function otherVertex(x, y, xc, yc){
+function otherVertices(x, y, xc, yc){
     let tempVertices = [];
 
     tempVertices.push((x+xc)/600);
@@ -47,7 +49,7 @@ function otherVertex(x, y, xc, yc){
     tempVertices.push((xc - y)/600);
     tempVertices.push((yc - x)/600);
     tempVertices.push(0);
-    
+
     tempVertices.push((xc - y)/600);
     tempVertices.push((yc + x)/600);
     tempVertices.push(0);
