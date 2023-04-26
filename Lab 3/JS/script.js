@@ -24,8 +24,8 @@ document.querySelectorAll('input[name="field-radio"]').forEach((radio) => {
       tempVertexData =  midPointCircle(300, 0, 0);
       draw();
     } else {
-      console.log("DDA");
-      tempVertexData = DDALine(500, 500, -200, -200);
+      console.log("Mid Point Ellipse");
+      tempVertexData = midPointEllipse(200, 160, 0, 0);;
       draw();
     }
   });
