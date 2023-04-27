@@ -17,6 +17,7 @@ function BLALine(x1, y1, x2, y2){
         // TODO: Plot X, Y
         tempVertices.push(X / 600);
         tempVertices.push(Y / 600);
+        tempVertices.push(0);
         // console.log(X, Y);
         p = 2 * dy - dx;
         steps = x1 < x2 ? x2 - x1 : x1 - x2;
@@ -32,6 +33,7 @@ function BLALine(x1, y1, x2, y2){
             // console.log(X, Y);
             tempVertices.push(X / 600);
             tempVertices.push(Y / 600);
+            tempVertices.push(0);
         }
     }else{
         // for slope >= 1
@@ -47,8 +49,9 @@ function BLALine(x1, y1, x2, y2){
         // console.log(X, Y);
         tempVertices.push(X / 600);
         tempVertices.push(Y / 600);
-        steps = y1 < y2 ? y2 - y1 : y1 - y2;
-        // steps = y2 - y1;
+        tempVertices.push(0);
+        // steps = y1 < y2 ? y2 - y1 : y1 - y2;
+        steps = y2 - y1;
         p = 2 * dx - dy;
         for(let i = 0; i < steps; i++){
             if(p < 0){
@@ -63,6 +66,7 @@ function BLALine(x1, y1, x2, y2){
             // console.log(X, Y);
             tempVertices.push(X / 600);
             tempVertices.push(Y / 600);
+            tempVertices.push(0);
         }
     }
     return tempVertices;
@@ -72,5 +76,5 @@ function BLALine(x1, y1, x2, y2){
 ** So, point is plotted from (-1,-1) to (1,1) in clipspace
 */
 //  BLALine(-600, -600, 600, 600);
- BLALine(-100, -100, 100, 100);
+//  BLALine(-100, -100, 100, 100);
 //  BLALine(100, 100, -100, -100);
