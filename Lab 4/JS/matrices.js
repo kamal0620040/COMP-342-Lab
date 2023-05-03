@@ -21,7 +21,7 @@ const scalingMatrix = [
   0, 0, 1
 ];
   
-// For translationM
+// For translation
 const translationMatrix = [
   1, 0, -0.5,
   0, 1, -0.5,
