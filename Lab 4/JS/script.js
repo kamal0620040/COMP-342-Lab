@@ -10,27 +10,6 @@ if (gl === null) {
   );
 }
 
-// let tempVertexData;
-
-// Default BLA Line is drawn 
-// tempVertexData = midPointCircle(300, 0, 0);
-// draw();
-
-// On any change on the radio button
-// document.querySelectorAll('input[name="field-radio"]').forEach((radio) => {
-//   radio.addEventListener("change", (event) => {
-//     if (event.target.value === "field1") {
-//       console.log("Mid Point Circle");
-//       tempVertexData =  midPointCircle(300, 0, 0);
-//       draw();
-//     } else {
-//       console.log("Mid Point Ellipse");
-//       tempVertexData = midPointEllipse(200, 160, 0, 0);;
-//       draw();
-//     }
-//   });
-// });
-
 function draw(vertexD, drawArraysMode, fragmentShaderGLSL = '' ){
   const vertexData = [
     ...vertexD,
@@ -92,12 +71,10 @@ function displayAxis() {
   draw(tempVertexData, 'line');
 }
 
-displayAxis();
-
 const triangleData = [
-    0.2, 0.8, 0,
-    0.2, 0.2, 0,
-    0.8, 0.2, 0,
+    0.2, 0.8, 1,
+    0.2, 0.2, 1,
+    0.8, 0.2, 1,
 ];
 
 function drawInitialTriangle() {
@@ -107,7 +84,12 @@ function drawInitialTriangle() {
   draw(vertexData,'triangle');
 }
 
-drawInitialTriangle()
+function reUsedFunctionCalling(){
+  displayAxis();
+  drawInitialTriangle();
+}
+
+reUsedFunctionCalling();
 
 function twoDTransformation(transformationMatrix, drawArrayMode, fragmentShaderGLSL){
   let tempVertexData = [];
@@ -129,5 +111,24 @@ function matrixMultiplication(transformerMatrix, vertices) {
 }
 
 
-twoDTransformation(reflectionMatrixAboutYaxis,'triangle');
-
+// On any change on the radio button
+document.querySelectorAll('input[name="field-radio"]').forEach((radio) => {
+  radio.addEventListener("change", (event) => {
+    if (event.target.value === "rotate") {
+      reUsedFunctionCalling();
+      twoDTransformation(rotationMatrix, 'triangle', `void main(){gl_FragColor = vec4(0, 0, 0.1, 0.5);}`);
+    } else if (event.target.value === "scale"){
+      reUsedFunctionCalling();
+      twoDTransformation(scalingMatrix,'triangle', `void main(){gl_FragColor = vec4(0, 0, 0.1, 0.5);}`);
+    } else if (event.target.value === "reflect"){
+      reUsedFunctionCalling();
+      twoDTransformation(reflectionMatrixAboutYaxis,'triangle', `void main(){gl_FragColor = vec4(0, 0, 0.1, 0.5);}`);
+    } else if (event.target.value === "shear"){
+      reUsedFunctionCalling();
+      twoDTransformation(shearingMatrix,'triangle', `void main(){gl_FragColor = vec4(0, 0, 0.1, 0.5);}`);
+    } else if (event.target.value === "translate"){
+      reUsedFunctionCalling();
+      twoDTransformation(translationMatrix,'triangle', `void main(){gl_FragColor = vec4(0, 0, 0.1, 0.5);}`);
+    }
+  });
+});
