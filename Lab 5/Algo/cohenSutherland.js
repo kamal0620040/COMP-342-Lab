@@ -13,16 +13,26 @@ function cohenSutherland(P1, P2, Xw_min, Yw_min, Xw_max, Yw_max) {
   while (true) {
     if ((regionCodeP1 | regionCodeP2) === 0) {
       vertexData.push(...P1_new, ...P2_new);
-      draw(gl, vertexData, 'line');
+      draw(gl, vertexData, "line");
       console.log(vertexData);
       vertexData = [];
       vertexData.push(...P1, ...P1_new, ...P2, ...P2_new);
-      draw(gl, vertexData, 'line', `void main(){ gl_FragColor = vec4(1, 0, 0, 1);}`);
+      draw(
+        gl,
+        vertexData,
+        "line",
+        `void main(){ gl_FragColor = vec4(1, 0, 0, 1);}`
+      );
       break;
     } else if ((regionCodeP1 & regionCodeP2) !== 0) {
       vertexData.push(...P1, ...P2);
-        draw(gl, vertexData, 'line', `void main(){ gl_FragColor = vec4(1, 0, 0, 1);}`);
-        break;
+      draw(
+        gl,
+        vertexData,
+        "line",
+        `void main(){ gl_FragColor = vec4(1, 0, 0, 1);}`
+      );
+      break;
     } else {
       let x, y;
       let regionCode = regionCodeP1 !== 0 ? regionCodeP1 : regionCodeP2;
@@ -51,7 +61,6 @@ function cohenSutherland(P1, P2, Xw_min, Yw_min, Xw_max, Yw_max) {
       }
     }
   }
-
 }
 
 function computeRegionCode(x, y, Xw_min, Yw_min, Xw_max, Yw_max) {

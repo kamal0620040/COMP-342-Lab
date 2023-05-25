@@ -21,7 +21,7 @@ let Yw_max = 0.4;
 viewPortVertexData = viewPortVertex(Xw_min, Yw_min, Xw_max, Yw_max);
 draw(gl, viewPortVertexData, 'line',`void main(){ gl_FragColor = vec4(0, 0, 0, 1);}`);
 
-
+// Default - Shown
 let P1 = [0.6, -0.7, 0];
 let P2 = [-0.9, 0.4, 0];
 cohenSutherland(P1, P2, Xw_min, Yw_min, Xw_max, Yw_max);
@@ -29,19 +29,23 @@ cohenSutherland(P1, P2, Xw_min, Yw_min, Xw_max, Yw_max);
 // On any change on the radio button
 document.querySelectorAll('input[name="field-radio"]').forEach((radio) => {
   radio.addEventListener("change", (event) => {
-    if (event.target.value === "field1") {
-      console.log("Mid Point Circle");
-      tempVertexData =  midPointCircle(300, 0, 0);
-      draw();
+    if (event.target.value === "cohen") {
+      // Draw ViewPort
+      draw(gl, viewPortVertexData, 'line',`void main(){ gl_FragColor = vec4(0, 0, 0, 1);}`);
+      let P1 = [0.6, -0.7, 0];
+      let P2 = [-0.9, 0.4, 0];
+      cohenSutherland(P1, P2, Xw_min, Yw_min, Xw_max, Yw_max);
     } else {
-      console.log("Mid Point Ellipse");
-      tempVertexData = midPointEllipse(200, 160, 0, 0);;
-      draw();
+      // Draw ViewPort
+      draw(gl, viewPortVertexData, 'line',`void main(){ gl_FragColor = vec4(0, 0, 0, 1);}`);
+      
+      // Draw Polygon
+      let P1 = [-0.6, -0.7, 0];
+      let P2 = [0.5, 0.7, 0];
+      let P3 = [0.5, 0.8, 0];
+      let P4 = [-0.2, 0.6, 0];
+      let P5 = [0.0, 0.2, 0];
+      sutherLandHodgemann(P1, P2, P3, P4, P5, Xw_min, Yw_min, Xw_max, Yw_max);
     }
   });
 });
-
-
-// for (let i = 0; i <= vertexData.length; i += 1) {
-//     gl.drawArrays(gl.POINTS, i, 1);
-// }
